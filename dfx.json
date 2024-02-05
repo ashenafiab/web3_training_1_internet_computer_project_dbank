@@ -1,0 +1,29 @@
+{
+  "canisters": {
+    "web3_training_1_internet_computer_project_dbank_backend": {
+      "main": "src/web3_training_1_internet_computer_project_dbank_backend/main.mo",
+      "type": "motoko"
+    },
+    "web3_training_1_internet_computer_project_dbank_frontend": {
+      "dependencies": [
+        "web3_training_1_internet_computer_project_dbank_backend"
+      ],
+      "frontend": {
+        "entrypoint": "src/web3_training_1_internet_computer_project_dbank_frontend/src/index.html"
+      },
+      "source": [
+        "src/web3_training_1_internet_computer_project_dbank_frontend/assets",
+        "dist/web3_training_1_internet_computer_project_dbank_frontend/"
+      ],
+      "type": "assets"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
