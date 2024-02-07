@@ -42,8 +42,8 @@ actor DBank {
   public func withdraw(amount : Float) : async () {
     let currentBalance : Float = currentValue - amount;
     if (currentBalance >= 0) {
-      var currentBalance : Float = currentValue - amount;
-      Debug.print(debug_show (currentBalance));
+      currentValue := currentValue - amount;
+      Debug.print(debug_show (currentValue));
     } else {
       Debug.print(debug_show ("Insufficient Balance!"));
     };

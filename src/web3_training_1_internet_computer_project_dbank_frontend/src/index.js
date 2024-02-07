@@ -1,19 +1,40 @@
 import { web3_training_1_internet_computer_project_dbank_backend } from "../../declarations/web3_training_1_internet_computer_project_dbank_backend";
 
-document.querySelector("form").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const button = e.target.querySelector("button");
+window.addEventListener('load', async () => {
+  // console.log('window loaded');
 
-  const name = document.getElementById("name").value.toString();
+ await updateBalance();
+
+});
+
+document.querySelector("form").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  // console.log("Submitted");
+
+  const button = event.target.querySelector("#submit-btn");
+
+  const inputAmount = parseFloat(document.getElementById("input-amount").value);
+  const withdrawalAmount = parseFloat(document.getElementById("withdrawal-amount").value);
 
   button.setAttribute("disabled", true);
 
-  // Interact with foo actor, calling the greet method
-  const greeting = await web3_training_1_internet_computer_project_dbank_backend.greet(name);
+  if (document.getElementById("input-amount").value.length != 0) {
+    await web3_training_1_internet_computer_project_dbank_backend.deposit(inputAmount);
+  }
+  if (document.getElementById("withdrawal-amount").value.length != 0) {
+    await web3_training_1_internet_computer_project_dbank_backend.withdraw(withdrawalAmount);
+  }
 
+  await web3_training_1_internet_computer_project_dbank_backend.compoundInterest();
+
+  await updateBalance();
+
+  document.getElementById("input-amount").value = "";
+  document.getElementById("withdrawal-amount").value = "";
   button.removeAttribute("disabled");
-
-  document.getElementById("greeting").innerText = greeting;
-
-  return false;
 });
+
+async function updateBalance() {
+  const currentAmount = await web3_training_1_internet_computer_project_dbank_backend.get();
+  document.getElementById("value").innerText = Math.round(currentAmount * 100) / 100;
+}
